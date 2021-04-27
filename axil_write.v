@@ -44,7 +44,8 @@ module axil_write(
             AXIL_READY:
                 rAXILW_nxt_state <= (s_axi_cfg_wvalid == 1) ? AXIL_WADDR : AXIL_READY;
             AXIL_WADDR:
-                rAXILW_nxt_state <= (s_axi_awready==1) ? AXIL_WDATA : AXIL_WADDR;
+                rAXILW_nxt_state <= (s_axi_awready==1 && s_axi_awvalid==1) ? 
+                                    (s_axi_wready==1 && s_axi_wvalid==1) ? AXIL_WRESP : AXIL_WDATA : AXIL_WADDR;
             AXIL_WDATA:
                 rAXILW_nxt_state <= (s_axi_wready==1) ? AXIL_WRESP : AXIL_WDATA;
             AXIL_WRESP:
@@ -87,8 +88,8 @@ module axil_write(
                     r_cfg_wdata   <= s_axi_cfg_wvalid ? s_axi_cfg_wdata : 32'd0;
                 end    
                 AXIL_WADDR : begin
-                    s_axi_awaddr  <= (s_axi_awready==1'b1) ? 0 : r_cfg_waddr;
-                    s_axi_awvalid <= (s_axi_awready==1'b1) ? 0 : 1;
+                    s_axi_awaddr  <= r_cfg_waddr;
+                    s_axi_awvalid <= 1;
                     s_axi_wdata   <= r_cfg_wdata;     
                     s_axi_wvalid  <= 1;
                     s_axi_bready  <= 0;     
