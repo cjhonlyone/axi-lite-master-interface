@@ -98,7 +98,7 @@ module axil_write(
                     r_cfg_wdata   <= r_cfg_wdata;
                 end       
                 AXIL_WDATA : begin
-                    s_axi_awaddr  <= 0;
+                    s_axi_awaddr  <= s_axi_awaddr;
                     s_axi_awvalid <= 0;
                     s_axi_wdata   <= r_cfg_wdata;
                     s_axi_wvalid  <= (s_axi_wready==1'b1) ? 0 : s_axi_wvalid;
@@ -108,7 +108,7 @@ module axil_write(
                     r_cfg_wdata   <= r_cfg_wdata;
                 end     
                 AXIL_WRESP : begin
-                    s_axi_awaddr  <= 0;
+                    s_axi_awaddr  <= s_axi_awaddr;
                     s_axi_awvalid <= 0;
                     s_axi_wdata   <= r_cfg_wdata;
                     s_axi_wvalid  <= 0;
