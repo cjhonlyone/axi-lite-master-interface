@@ -81,7 +81,7 @@ module axil_read(
                     r_cfg_rdv     <= 0;
                 end    
                 AXIL_RADDR : begin
-                    s_axi_araddr  <= s_axi_araddr;
+                    s_axi_araddr  <= (rAXILR_nxt_state == 4'd8) ? 32'd0 : s_axi_araddr;
                     s_axi_arvalid <= (s_axi_arready==1) ? 32'd0 : s_axi_arvalid;
                     s_axi_rready  <= (s_axi_arready==1) ? 1'b1 : s_axi_rready;
                     
@@ -90,7 +90,7 @@ module axil_read(
                     r_cfg_rdv     <= (s_axi_rvalid==1) ? 1'b1 : 1'b0;
                 end       
                 AXIL_RDATA : begin
-                    s_axi_araddr  <= s_axi_araddr;
+                    s_axi_araddr  <= 32'd0;
                     s_axi_arvalid <= 1'b0;
                     s_axi_rready  <= (s_axi_rvalid==1) ? 1'b0 : s_axi_rready;
                     
